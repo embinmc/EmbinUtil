@@ -6,6 +6,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+/**
+ * {@link Optional}-like class specialized for fields.
+ */
 @SuppressWarnings({"UnusedReturnValue", "unused", "Convert2Diamond"})
 public final class Temporary<T> {
     @Nullable private T value;
@@ -67,6 +70,13 @@ public final class Temporary<T> {
 
     public Optional<T> getValue() {
         return Optional.ofNullable(this.value);
+    }
+
+    /**
+     * Identical to {@link Temporary#getValue()}
+     */
+    public Optional<T> toOptional() {
+        return this.getValue();
     }
 
     @Override

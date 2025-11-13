@@ -17,6 +17,10 @@ public final class MathUtil {
         return base[0];
     }
 
+    /**
+     * @param min Value is inclusive
+     * @param max Value is inclusive
+     */
     public static int randomInt(int min, int max) {
         return MathUtil.RANDOM.nextInt(min, max + 1);
     }
@@ -43,5 +47,9 @@ public final class MathUtil {
 
     public static boolean isNegative(double value) {
         return value < 0.0D;
+    }
+
+    public static int floor(double value) {
+        return (int) Math.floor(value);
     }
 }

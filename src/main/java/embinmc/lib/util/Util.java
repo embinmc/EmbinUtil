@@ -1,5 +1,6 @@
 package embinmc.lib.util;
 
+import embinmc.lib.util.annotation.UseAsLambda;
 import embinmc.lib.util.exception.NotNullException;
 
 import java.util.Optional;
@@ -45,5 +46,25 @@ public final class Util {
 
     public static <T> T create(Supplier<T> supplier) {
         return supplier.get();
+    }
+
+    @UseAsLambda
+    public static <T> boolean always(T unused) {
+        return true;
+    }
+
+    @UseAsLambda
+    public static <T> boolean never(T unused) {
+        return false;
+    }
+
+    @UseAsLambda
+    public static boolean always() {
+        return true;
+    }
+
+    @UseAsLambda
+    public static boolean never() {
+        return false;
     }
 }

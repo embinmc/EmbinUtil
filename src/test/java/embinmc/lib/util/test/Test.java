@@ -30,6 +30,7 @@ public class Test {
         test(() -> MathUtil.powInt(2, 16) == 65536);
         test(() -> MathUtil.powInt(2, 8) == 256);
         test(() -> MathUtil.powInt(10, 5) == 100_000);
+        test(Util::always);
 
         List<String> strList = Util.create(new ArrayList<>(), list -> {
             list.add("foo");
