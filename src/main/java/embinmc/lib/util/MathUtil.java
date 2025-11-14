@@ -52,4 +52,10 @@ public final class MathUtil {
     public static int floor(double value) {
         return (int) Math.floor(value);
     }
+
+    public static int modulo(int value, int mod) {
+        int modded = value % mod;
+        if (modded < 0) modded = modded + mod;
+        return modded;
+    }
 }
