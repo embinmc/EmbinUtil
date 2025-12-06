@@ -6,6 +6,11 @@ import com.mojang.serialization.DataResult;
 @SuppressWarnings({"unused"})
 public interface SerializableEnum {
     String asString();
+    <T> Codec<T> codec();
+
+    default boolean isString(String string) {
+        return this.asString().equals(string);
+    }
 
     static <T extends Enum<T> & SerializableEnum> Codec<T> getCodec(Class<T> clazz) {
         return Codec.STRING.comapFlatMap(s -> validate(s, clazz), T::asString);
