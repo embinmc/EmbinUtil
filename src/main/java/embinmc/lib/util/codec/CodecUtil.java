@@ -6,6 +6,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 @SuppressWarnings({"unused"})
@@ -38,6 +39,21 @@ public final class CodecUtil {
                 either -> either.map(t -> t, t2 -> t2),
                 Either::right
         );
+    }
+
+    public static <T> MapCodec<T> withEitherOptionalKey(Codec<T> codec, String mainKey, String secondaryKey, T defaultValue) {
+        return CodecUtil.withEitherKey(codec, mainKey, secondaryKey).orElseGet(() -> defaultValue);
+    }
+
+    public static <T> MapCodec<Optional<T>> withEitherOptionalKey(Codec<T> codec, String mainKey, String secondaryKey) {
+        return CodecUtil.withEitherKey(codec, mainKey, secondaryKey)
+                .flatXmap(v -> DataResult.success(Optional.of(v)), CodecUtil::validateExistence)
+                .orElseGet(Optional::empty);
+    }
+
+    private static <T> DataResult<T> validateExistence(Optional<T> value) {
+        if (value.isPresent()) return DataResult.success(value.orElseThrow());
+        return DataResult.error(() -> "No value");
     }
 
     public enum Empty {
