@@ -9,14 +9,14 @@ public final class Repeater {
     private int timesRepeated;
     private Consumer<Integer> action;
 
-    private Repeater(int repeatAmount, Consumer<Integer> action) {
+    private Repeater(int repeatAmount, Consumer<Integer> action, int timesRepeated) {
         this.index = repeatAmount;
         this.action = Objects.requireNonNull(action);
-        this.timesRepeated = 0;
+        this.timesRepeated = timesRepeated;
     }
 
     public static Repeater create(int repeatAmount, Consumer<Integer> action) {
-        return new Repeater(repeatAmount, action);
+        return new Repeater(repeatAmount, action, 0);
     }
 
     public void doAction() {

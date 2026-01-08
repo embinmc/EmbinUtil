@@ -16,7 +16,7 @@ public final class ListUtil {
 
     public static <X> Optional<X> getRandomFromList(List<X> list) {
         if (list.isEmpty()) return Optional.empty();
-        return Optional.of(list.get(MathUtil.randomInt(0, list.size())));
+        return Optional.of(list.get(MathUtil.randomInt(0, list.size() - 1)));
     }
 
     public static <A> List<A> newMutable() {
