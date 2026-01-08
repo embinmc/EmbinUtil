@@ -32,6 +32,14 @@ public final class MathUtil {
         return MathUtil.RANDOM.nextInt(minInclusive, maxInclusive + 1);
     }
 
+    /**
+     * @param minInclusive Inclusive
+     * @param maxExclusive Exclusive
+     */
+    public static float randomFloat(float minInclusive, float maxExclusive) {
+        return MathUtil.RANDOM.nextFloat(minInclusive, maxExclusive);
+    }
+
     public static double lerp(double amount, double min, double max) {
         return ((max - min) * amount) + min;
     }
