@@ -2,9 +2,12 @@ package embinmc.lib.util;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * {@link Optional}-like class.
@@ -77,6 +80,23 @@ public final class Temporary<T> {
      */
     public Optional<T> toOptional() {
         return this.getValue();
+    }
+
+    public <U> Optional<U> map(Function<? super T, ? extends U> mapper) {
+        return this.getValue().map(mapper);
+    }
+
+    public @Nullable T orElseNull() {
+        return this.value;
+    }
+
+    public T orElseThrow() {
+        if (this.value == null) throw new NoSuchElementException("Temporary holds no value");
+        return Objects.requireNonNull(this.value);
+    }
+
+    public T orElseGet(Supplier<? extends T> supplier) {
+        return this.getValue().orElseGet(supplier);
     }
 
     @Override
