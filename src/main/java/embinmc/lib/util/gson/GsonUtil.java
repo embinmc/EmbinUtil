@@ -25,7 +25,7 @@ public final class GsonUtil {
         try {
             inputStream.close();
         } catch (IOException exception) {
-            throw new RuntimeException(exception);
+            throw new UncheckedIOException(exception);
         }
         return jsonObject;
     }

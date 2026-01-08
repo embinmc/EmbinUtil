@@ -37,10 +37,7 @@ public final class CodecUtil {
     }
 
     public static <T> MapCodec<T> withEitherKey(Codec<T> codec, String mainKey, String secondaryKey) {
-        return Codec.mapEither(codec.fieldOf(secondaryKey), codec.fieldOf(mainKey)).xmap(
-                either -> either.map(Util::itself, Util::itself),
-                Either::right
-        );
+        return Codec.mapEither(codec.fieldOf(secondaryKey), codec.fieldOf(mainKey)).xmap(Either::unwrap, Either::right);
     }
 
     public static <T> MapCodec<T> withEitherOptionalKey(Codec<T> codec, String mainKey, String secondaryKey, T defaultValue) {
