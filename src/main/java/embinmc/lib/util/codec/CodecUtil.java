@@ -55,7 +55,7 @@ public final class CodecUtil {
         return codec.validate(list -> list.isEmpty() ? DataResult.error(() -> "List cannot be empty") : DataResult.success(list));
     }
 
-    public static <T extends Map<?, ?>> Codec<T> nonEmptyMap(Codec<T> codec) {
+    public static <K, V> Codec<Map<K, V>> nonEmptyMap(Codec<Map<K, V>> codec) {
         return codec.validate(map -> map.isEmpty() ? DataResult.error(() -> "Map cannot be empty") : DataResult.success(map));
     }
 

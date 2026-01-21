@@ -11,6 +11,9 @@ import java.util.function.Supplier;
 
 @SuppressWarnings({"unused"})
 public final class Util {
+    private Util() {
+        Util.enforceNoInstance(Util.class);
+    }
 
     /**
      * <p>Repeats a method a specified amount of times.</p>
@@ -72,5 +75,13 @@ public final class Util {
     @UseAsLambda
     public static <T> T itself(T thing) {
         return thing;
+    }
+
+    public static void enforceNoInstance(Class<?> clazz) {
+        throw new UnsupportedOperationException("Can't create instance of " + clazz.getName());
+    }
+
+    public static void enforceNoInstance() {
+        throw new UnsupportedOperationException("Attempted to create instance of a class that does not allow instances");
     }
 }
