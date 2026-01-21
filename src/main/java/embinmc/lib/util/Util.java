@@ -1,5 +1,6 @@
 package embinmc.lib.util;
 
+import embinmc.lib.util.annotation.Nullable;
 import embinmc.lib.util.annotation.UseAsLambda;
 import embinmc.lib.util.exception.NotNullException;
 
@@ -10,6 +11,9 @@ import java.util.function.Supplier;
 
 @SuppressWarnings({"unused"})
 public final class Util {
+    private Util() {
+        Util.enforceNoInstance(Util.class);
+    }
 
     /**
      * <p>Repeats a method a specified amount of times.</p>
@@ -22,20 +26,20 @@ public final class Util {
         }
     }
 
-    public static <Z> void ifNotNull(Z thing, Consumer<Z> function) {
+    public static <Z> void ifNotNull(@Nullable Z thing, Consumer<Z> function) {
         if (thing != null) {
             function.accept(thing);
         }
     }
 
-    public static <Z, Q> Optional<Q> ifNotNullReturn(Z thing, Function<Z, Q> function) {
+    public static <Z, Q> Optional<Q> ifNotNullReturn(@Nullable Z thing, Function<Z, Q> function) {
         if (thing != null) {
             return Optional.ofNullable(function.apply(thing));
         }
         return Optional.empty();
     }
 
-    public static <T> void requireNull(T thing, String message) {
+    public static <T> void requireNull(@Nullable T thing, String message) {
         if (thing != null) throw new NotNullException(message);
     }
 
@@ -71,5 +75,13 @@ public final class Util {
     @UseAsLambda
     public static <T> T itself(T thing) {
         return thing;
+    }
+
+    public static void enforceNoInstance(Class<?> clazz) {
+        throw new UnsupportedOperationException("Can't create instance of " + clazz.getName());
+    }
+
+    public static void enforceNoInstance() {
+        throw new UnsupportedOperationException("Attempted to create instance of a class that does not allow instances");
     }
 }
