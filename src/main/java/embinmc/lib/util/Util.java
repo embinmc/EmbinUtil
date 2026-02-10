@@ -5,7 +5,9 @@ import embinmc.lib.util.annotation.Nullable;
 import embinmc.lib.util.annotation.UseAsLambda;
 import embinmc.lib.util.exception.NotNullException;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
@@ -90,5 +92,16 @@ public final class Util {
 
     public static <T> @NotNull T orElse(@Nullable T input, @NotNull T orElse) {
         return input != null ? input : orElse;
+    }
+
+    public static <T, R> Function<T, R> memoize(Function<T, R> func) {
+        return new Function<>() {
+            private final Map<T, R> cache = new ConcurrentHashMap<>();
+
+            @Override
+            public R apply(T argument) {
+                return this.cache.computeIfAbsent(argument, func);
+            }
+        };
     }
 }

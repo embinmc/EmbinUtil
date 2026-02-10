@@ -67,7 +67,7 @@ public final class GsonUtil {
             return GsonUtil.fromInputStream(jsonFile.toURI().toURL().openStream());
         } catch (Exception e) {
             if (required) {
-                throw new IllegalArgumentException("Can't find required json file: " + jsonFile.getName());
+                throw new IllegalStateException("Can't find required json file: " + jsonFile.getName());
             } else {
                 return null;
             }
