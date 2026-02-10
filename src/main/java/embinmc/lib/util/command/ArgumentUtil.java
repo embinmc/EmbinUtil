@@ -5,6 +5,8 @@ import embinmc.lib.util.Util;
 import embinmc.lib.util.function.CharPredicate;
 
 public final class ArgumentUtil {
+    private static final CharPredicate NOT_SPACE = c -> c != ' ';
+
     private ArgumentUtil() {
         Util.enforceNoInstance(ArgumentUtil.class);
     }
@@ -22,10 +24,10 @@ public final class ArgumentUtil {
      */
     @Deprecated
     public static String greedyRead(final StringReader reader) {
-        return ArgumentUtil.greedyRead(reader, c -> c != ' ');
+        return ArgumentUtil.greedyRead(reader, ArgumentUtil.NOT_SPACE);
     }
 
     public static String greedyReadNoSpaces(final StringReader reader) {
-        return ArgumentUtil.greedyRead(reader, c -> c != ' ');
+        return ArgumentUtil.greedyRead(reader, ArgumentUtil.NOT_SPACE);
     }
 }
