@@ -101,4 +101,14 @@ public final class CodecUtil {
         if (value.isPresent()) return DataResult.success(value.orElseThrow());
         return DataResult.error(() -> "No value");
     }
+
+    public static <Id, Element> Codec<Element> idResolvedCodec(final Codec<Id> value, Function<Id, Element> fromId, Function<Element, Id> toId) {
+        return value.flatXmap(id -> {
+            Element element = fromId.apply(id);
+            return element != null ? DataResult.success(element) : DataResult.error(() -> "Unknown id: " + id);
+        }, element -> {
+            Id id = toId.apply(element);
+            return id != null ? DataResult.success(id) : DataResult.error(() -> "Can't get id of element: " + element);
+        });
+    }
 }
